@@ -1,23 +1,65 @@
 LoRAForge/
-├─ README.md                # Project overview & usage
-├─ LICENSE                  # MIT
-├─ requirements.txt         # Python deps
-├─ pyproject.toml           # Optional modern packaging
-├─ Makefile                 # Common commands (train, eval, test)
-├─ configs/                 # YAML configs for models & tasks
-│  ├─ sft_default.yaml
-│  └─ lora_mistral.yaml
+├─ README.md                  # Project overview, usage, examples
+├─ LICENSE                    # MIT license
+├─ requirements.txt           # Python dependencies
+├─ pyproject.toml             # Optional modern packaging
+├─ Makefile                   # Common commands (train, eval, test, clean)
+│
+├─ configs/                   # YAML configs for reproducibility
+│  ├─ sft_default.yaml        # Default supervised fine-tuning config
+│  ├─ lora_mistral.yaml       # Example config for Mistral-7B
+│  └─ eval.yaml               # Evaluation-specific config
+│
 ├─ data/
-│  ├─ raw/                  # Original datasets
-│  ├─ processed/            # Preprocessed parquet/arrow
-│  └─ samples/              # Tiny test data for CI
+│  ├─ raw/                    # Original datasets (jsonl, csv, txt)
+│  │   └─ dataset.jsonl
+│  ├─ processed/              # Preprocessed parquet/arrow files
+│  │   ├─ train.parquet
+│  │   └─ val.parquet
+│  └─ samples/                # Tiny toy datasets for CI/tests
+│      └─ sample.jsonl
+│
+├─ notebooks/                 # Jupyter notebooks for exploration
+│  ├─ 00_project_overview.ipynb     # Explains pipeline, configs, usage
+│  ├─ 01_data_exploration.ipynb     # Inspect raw/processed data
+│  ├─ 02_train_sft.ipynb            # Walkthrough of supervised fine-tuning
+│  ├─ 03_train_lora.ipynb           # LoRA fine-tuning demo
+│  ├─ 04_eval_visualization.ipynb   # Generate plots, metrics, prompt I/O
+│  └─ 05_sandbox_experiments.ipynb  # Free-form prototyping
+│
 ├─ src/
-│  ├─ data/                 # Dataset loaders & formatters
-│  ├─ models/               # Base model + LoRA setup
-│  ├─ training/             # Training loop & trainer
-│  ├─ eval/                 # Evaluation scripts & metrics
-│  ├─ utils/                # Logging, I/O, helpers
-│  └─ cli/                  # Command-line entrypoints
-├─ scripts/                 # One-off utilities (prepare_data, export, push_to_hub)
-├─ tests/                   # Unit tests for CI
-└─ .github/workflows/ci.yaml # GitHub Actions CI
+│  ├─ cli/
+│  │   └─ run.py               # CLI entrypoint (train/eval/export)
+│  ├─ data/
+│  │   ├─ dataset_loader.py    # Load parquet/jsonl datasets
+│  │   └─ formatters.py        # Prompt formatting for niche tasks
+│  ├─ models/
+│  │   ├─ load_base.py         # Load base model + tokenizer
+│  │   └─ lora_setup.py        # Attach LoRA adapters
+│  ├─ training/
+│  │   ├─ train_sft.py         # Supervised fine-tuning script
+│  │   ├─ train_lora.py        # LoRA fine-tuning script
+│  │   └─ trainer.py           # Shared Trainer wrapper
+│  ├─ eval/
+│  │   ├─ evaluate.py          # Evaluation loop
+│  │   ├─ metrics.py           # Task-specific metrics (BLEU, ROUGE, EM)
+│  │   └─ prompts/
+│  │       └─ eval_prompts.jsonl
+│  └─ utils/
+│      ├─ io.py                # File I/O helpers
+│      ├─ logging.py           # Logging setup
+│      └─ seed.py              # Reproducibility utilities
+│
+├─ scripts/                    # Utility scripts
+│  ├─ prepare_data.py          # Preprocess raw → processed
+│  ├─ push_to_hub.py           # Upload model/adapters to Hugging Face Hub
+│  └─ export_merged.py         # Merge LoRA adapters into base model
+│
+├─ tests/                      # Unit tests for CI
+│  ├─ test_data.py             # Dataset loading tests
+│  ├─ test_lora.py             # LoRA setup tests
+│  └─ test_trainer.py          # Training loop sanity checks
+│
+└─ .github/
+    └─ workflows/
+        └─ ci.yaml             # GitHub Actions CI pipeline
