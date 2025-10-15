@@ -1,0 +1,23 @@
+LoRAForge/
+├─ README.md                # Project overview & usage
+├─ LICENSE                  # MIT
+├─ requirements.txt         # Python deps
+├─ pyproject.toml           # Optional modern packaging
+├─ Makefile                 # Common commands (train, eval, test)
+├─ configs/                 # YAML configs for models & tasks
+│  ├─ sft_default.yaml
+│  └─ lora_mistral.yaml
+├─ data/
+│  ├─ raw/                  # Original datasets
+│  ├─ processed/            # Preprocessed parquet/arrow
+│  └─ samples/              # Tiny test data for CI
+├─ src/
+│  ├─ data/                 # Dataset loaders & formatters
+│  ├─ models/               # Base model + LoRA setup
+│  ├─ training/             # Training loop & trainer
+│  ├─ eval/                 # Evaluation scripts & metrics
+│  ├─ utils/                # Logging, I/O, helpers
+│  └─ cli/                  # Command-line entrypoints
+├─ scripts/                 # One-off utilities (prepare_data, export, push_to_hub)
+├─ tests/                   # Unit tests for CI
+└─ .github/workflows/ci.yaml # GitHub Actions CI
