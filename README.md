@@ -7,8 +7,14 @@ Build a production‑grade, modular pipeline for fine‑tuning large language mo
 ### _Fine-Tuning Large Language Models (LLMs) Efficiently with LoRA_
  
 ![LoRAForge Banner]
+<!-- LoRAForge Banner -->
 <p align="center">
-  <img src="https://lh3.googleusercontent.com/gg-dl/AJfQ9KQ0h2IxKBY_UcZsvzokAO2mjcUBw9ao8Ul6OouXugpJIkDNS1fF0-P5YEMot83b38j5XfWKUXBX72mmbWkt175RtLsd5Odj4UDD2QRUMPcmGaqnjuxpAkidVkGXxiS11E3n9Udy1mBJXr79kCBLNMIBinn2iYWoZyzsQGfyfY5xRVsSDg=s1024-rj">
+  <img src="https://raw.githubusercontent.com/your-username/your-repo/main/assets/lora-banner.png" width="800" alt="LoRAForge Banner">
+</p>
+
+<!-- Gemini Generated Image -->
+<p align="center">
+  <img src="https://lh3.googleusercontent.com/gg-dl/AJfQ9KQ0h2IxKBY_UcZsvzokAO2mjcUBw9ao8Ul6OouXugpJIkDNS1fF0-P5YEMot83b38j5XfWKUXBX72mmbWkt175RtLsd5Odj4UDD2QRUMPcmGaqnjuxpAkidVkGXxiS11E3n9Udy1mBJXr79kCBLNMIBinn2iYWoZyzsQGfyfY5xRVsSDg=s1024-rj" width="700" alt="LoRAForge Gemini Illustration">
 </p>
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
