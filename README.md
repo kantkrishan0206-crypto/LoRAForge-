@@ -6,7 +6,7 @@ Build a production‑grade, modular pipeline for fine‑tuning large language mo
 # 🔥 **LoRAForge**
 ### _Fine-Tuning Large Language Models (LLMs) Efficiently with LoRA_
 
-![LoRAForge Banner](https://raw.githubusercontent.com/yourusername/LoRAForge/main/assets/banner.png)
+![LoRAForge Banner]()
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
 [![Transformers](https://img.shields.io/badge/Transformers-HuggingFace-yellow.svg?style=for-the-badge&logo=huggingface)](https://huggingface.co/)
