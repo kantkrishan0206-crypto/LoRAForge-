@@ -145,24 +145,82 @@ print(metrics)
 
 ```
 LoRAForge/
+├─ README.md                        # 🔍 Project overview, setup, usage, examples, citations
+├─ LICENSE                          # 📜 MIT license for open-source use
+├─ requirements.txt                 # 📦 Python dependencies (pinned for reproducibility)
+├─ pyproject.toml                   # 🛠️ Optional modern packaging (Poetry or setuptools)
+├─ Makefile                         # ⚙️ CLI shortcuts: setup, train, eval, test, clean
 │
-├── data/                 # domain datasets
-├── src/
-│   ├── train_lora.py     # training logic
-│   ├── eval.py           # evaluation metrics
-│   ├── utils.py          # helper functions
+├─ configs/                         # 🧾 YAML configs for reproducible experiments
+│  ├─ sft_default.yaml              # Default supervised fine-tuning config
+│  ├─ lora_mistral.yaml             # LoRA config for Mistral-7B
+│  ├─ lora_phi.yaml                 # LoRA config for Phi-2
+│  ├─ eval.yaml                     # Evaluation config (prompts, metrics, output paths)
+│  └─ hub.yaml                      # Hugging Face Hub push config
 │
-├── notebooks/
-│   ├── demo.ipynb        # Colab notebook
+├─ data/
+│  ├─ raw/                          # 📂 Original datasets (jsonl, csv, txt)
+│  │   ├─ dataset.jsonl             # Domain-specific instruction data
+│  │   └─ metadata.json             # Optional schema or source info
+│  ├─ processed/                    # 🧮 Preprocessed parquet/arrow files
+│  │   ├─ train.parquet
+│  │   └─ val.parquet
+│  └─ samples/                      # 🧪 Tiny toy datasets for CI/tests
+│      ├─ sample.jsonl
+│      └─ sample.parquet
 │
-├── app/
-│   ├── dashboard.py      # Gradio / Streamlit UI
+├─ notebooks/                       # 📓 Jupyter notebooks for exploration, debugging, demos
+│  ├─ 00_project_overview.ipynb     # Pipeline walkthrough, config anatomy, usage
+│  ├─ 01_data_exploration.ipynb     # Inspect raw/processed data, schema, distributions
+│  ├─ 02_train_sft.ipynb            # Supervised fine-tuning demo
+│  ├─ 03_train_lora.ipynb           # LoRA adapter training demo
+│  ├─ 04_eval_visualization.ipynb   # Generate plots, metrics, prompt I/O
+│  ├─ 05_merge_export.ipynb         # Merge LoRA into base, export to Hugging Face
+│  └─ 06_sandbox_experiments.ipynb  # Free-form prototyping, ablations, debugging
 │
-├── results/
-│   └── logs.json
+├─ src/
+│  ├─ cli/                          # 🧵 CLI entrypoints for modular execution
+│  │   └─ run.py                    # Unified CLI: train, eval, export, push
+│  ├─ data/                         # 📊 Data loading, formatting, preprocessing
+│  │   ├─ dataset_loader.py         # Load parquet/jsonl datasets
+│  │   ├─ formatters.py             # Prompt formatting for instruction-style tasks
+│  │   └─ preprocess.py             # Raw → processed conversion logic
+│  ├─ models/                       # 🧠 Model loading and LoRA adapter setup
+│  │   ├─ load_base.py              # Load base model + tokenizer (with quantization)
+│  │   └─ lora_setup.py             # Attach LoRA adapters via PEFT
+│  ├─ training/                     # 🏋️ Training logic
+│  │   ├─ train_sft.py              # Supervised fine-tuning script
+│  │   ├─ train_lora.py             # LoRA fine-tuning script
+│  │   └─ trainer.py                # Shared Trainer wrapper (HF Trainer or custom)
+│  ├─ eval/                         # 📈 Evaluation and metrics
+│  │   ├─ evaluate.py               # Evaluation loop
+│  │   ├─ metrics.py                # Task-specific metrics (BLEU, ROUGE, EM, F1)
+│  │   ├─ visualizer.py             # Plotting, prompt I/O rendering
+│  │   └─ prompts/
+│  │       └─ eval_prompts.jsonl    # Evaluation prompts (instruction-style)
+│  └─ utils/                        # 🛠️ Utilities
+│      ├─ io.py                     # File I/O helpers (load/save YAML, JSON, parquet)
+│      ├─ logging.py                # Logging setup (console + file)
+│      ├─ seed.py                   # Reproducibility utilities (set_seed)
+│      └─ config.py                 # Config loader + schema validation
 │
-├── requirements.txt
-└── README.md
+├─ scripts/                         # 🧪 Utility scripts for automation
+│  ├─ prepare_data.py               # Preprocess raw → processed
+│  ├─ push_to_hub.py                # Upload model/adapters to Hugging Face Hub
+│  ├─ export_merged.py              # Merge LoRA adapters into base model
+│  ├─ convert_to_gguf.py            # Optional: export to GGUF for llama.cpp
+│  └─ quantize_model.py             # Optional: quantize merged model to 4-bit
+│
+├─ tests/                           # ✅ Unit tests for CI and reliability
+│  ├─ test_data.py                  # Dataset loading and formatting tests
+│  ├─ test_lora.py                  # LoRA setup and adapter attachment tests
+│  ├─ test_trainer.py               # Training loop sanity checks
+│  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
+│  └─ test_config.py                # Config schema and loader validation
+│
+└─ .github/
+    └─ workflows/
+        └─ ci.yaml                  # GitHub Actions CI pipeline (lint, test, build)
 ```
 
 ---
