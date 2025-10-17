@@ -212,15 +212,12 @@ LoRAForge/
 │  └─ quantize_model.py             # Optional: quantize merged model to 4-bit
 │
 ├─ tests/                           # ✅ Unit tests for CI and reliability
-│  ├─ test_data.py                  # Dataset loading and formatting tests
-│  ├─ test_lora.py                  # LoRA setup and adapter attachment tests
-│  ├─ test_trainer.py               # Training loop sanity checks
-│  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
-│  └─ test_config.py                # Config schema and loader validation
-│
-└─ .github/
-    └─ workflows/
-        └─ ci.yaml                  # GitHub Actions CI pipeline (lint, test, build)
+  ├─ test_data.py                  # Dataset loading and formatting tests
+  ├─ test_lora.py                  # LoRA setup and adapter attachment tests
+  ├─ test_trainer.py               # Training loop sanity checks
+  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
+  └─ test_config.py                # Config schema and loader validation
+
 ```
 
 ---
