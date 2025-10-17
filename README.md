@@ -160,15 +160,16 @@ LoRAForge/
 │  ├─ lora_mistral.yaml             # LoRA config for Mistral-7B
 │  ├─ lora_phi.yaml                 # LoRA config for Phi-2
 │  ├─ eval.yaml                     # Evaluation config (prompts, metrics, output paths)
-│  └─ hub.yaml                      # Hugging Face Hub push config
+│  ├─ hub.yaml                      # Hugging Face Hub push config
+│  └─ cross_domain.yaml             # NEW: config for cross-domain evaluation (train vs test domains)
 │
 ├─ data/
 │  ├─ raw/                          # 📂 Original datasets (jsonl, csv, txt)
 │  │   ├─ dataset.jsonl             # Domain-specific instruction data
 │  │   └─ metadata.json             # Optional schema or source info
 │  ├─ processed/                    # 🧮 Preprocessed parquet/arrow files
-│  │   ├─ train.parquet
-│  │   └─ val.parquet
+│  │   ├─ train.parquet             # Training split
+│  │   └─ val.parquet               # Validation split
 │  └─ samples/                      # 🧪 Tiny toy datasets for CI/tests
 │      ├─ sample.jsonl
 │      └─ sample.parquet
@@ -180,7 +181,8 @@ LoRAForge/
 │  ├─ 03_train_lora.ipynb           # LoRA adapter training demo
 │  ├─ 04_eval_visualization.ipynb   # Generate plots, metrics, prompt I/O
 │  ├─ 05_merge_export.ipynb         # Merge LoRA into base, export to Hugging Face
-│  └─ 06_sandbox_experiments.ipynb  # Free-form prototyping, ablations, debugging
+│  ├─ 06_sandbox_experiments.ipynb  # Free-form prototyping, ablations, debugging
+│  └─ 07_cross_domain_eval.ipynb    # NEW: demo notebook for cross-domain testing
 │
 ├─ src/
 │  ├─ cli/                          # 🧵 CLI entrypoints for modular execution
@@ -191,7 +193,9 @@ LoRAForge/
 │  │   └─ preprocess.py             # Raw → processed conversion logic
 │  ├─ models/                       # 🧠 Model loading and LoRA adapter setup
 │  │   ├─ load_base.py              # Load base model + tokenizer (with quantization)
-│  │   └─ lora_setup.py             # Attach LoRA adapters via PEFT
+│  │   ├─ lora_setup.py             # Attach LoRA adapters via PEFT
+│  │   ├─ dynamic_lora.py           # NEW: dynamic rank adaptation logic (adjust r during training)
+│  │   └─ hybrid_lora.py            # NEW: hybrid LoRA + prompt-tuning (combine adapters + prefixes)
 │  ├─ training/                     # 🏋️ Training logic
 │  │   ├─ train_sft.py              # Supervised fine-tuning script
 │  │   ├─ train_lora.py             # LoRA fine-tuning script
@@ -200,8 +204,9 @@ LoRAForge/
 │  │   ├─ evaluate.py               # Evaluation loop
 │  │   ├─ metrics.py                # Task-specific metrics (BLEU, ROUGE, EM, F1)
 │  │   ├─ visualizer.py             # Plotting, prompt I/O rendering
-│  │   └─ prompts/
-│  │       └─ eval_prompts.jsonl    # Evaluation prompts (instruction-style)
+│  │   ├─ prompts/
+│  │   │   └─ eval_prompts.jsonl    # Evaluation prompts (instruction-style)
+│  │   └─ cross_domain_eval.py      # NEW: cross-domain evaluation runner
 │  └─ utils/                        # 🛠️ Utilities
 │      ├─ io.py                     # File I/O helpers (load/save YAML, JSON, parquet)
 │      ├─ logging.py                # Logging setup (console + file)
@@ -216,11 +221,14 @@ LoRAForge/
 │  └─ quantize_model.py             # Optional: quantize merged model to 4-bit
 │
 ├─ tests/                           # ✅ Unit tests for CI and reliability
-  ├─ test_data.py                  # Dataset loading and formatting tests
-  ├─ test_lora.py                  # LoRA setup and adapter attachment tests
-  ├─ test_trainer.py               # Training loop sanity checks
-  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
-  └─ test_config.py                # Config schema and loader validation
+│  ├─ test_data.py                  # Dataset loading and formatting tests
+│  ├─ test_lora.py                  # LoRA setup and adapter attachment tests
+│  ├─ test_trainer.py               # Training loop sanity checks
+│  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
+│  ├─ test_config.py                # Config schema and loader validation
+│  ├─ test_cross_domain.py          # NEW: unit tests for cross-domain eval
+│  └─ test_dynamic_lora.py          # NEW: unit tests for dynamic/hybrid LoRA
+
 
 ```
 
