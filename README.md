@@ -43,7 +43,7 @@ With LoRAForge, you can:
 ## 🏗️ **Architecture Overview**
 
 <div align="center">
-<img src="" width="700">
+<img src="https://github.com/small-thinking/multi-lora-fine-tune/raw/main/assets/system_overview.png" width="700">
 </div>
 
 **Explanation:**  
