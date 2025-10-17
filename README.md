@@ -67,7 +67,7 @@ This dramatically cuts the number of parameters updated during training, enablin
 
 ### 🛠️ 1. Setup Environment
 ```bash
-git clone https://github.com/yourusername/LoRAForge.git
+git clone https://github.com/kantkrishan0206-crypto/LoRAForge.git
 cd LoRAForge
 pip install -r requirements.txt
 ```
