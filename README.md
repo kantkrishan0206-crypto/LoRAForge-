@@ -44,6 +44,10 @@ With LoRAForge, you can:
 <img src="https://github.com/small-thinking/multi-lora-fine-tune/raw/main/assets/system_overview.png" width="700">
 </div>
 
+<div align="center">
+<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/35499ded-78f0-49d3-ac12-06f934d12fab" />
+</div>
+
 **Explanation:**  
 LoRA injects small trainable rank-decomposition matrices into each attention layer, while the original model weights stay *frozen*.  
 This dramatically cuts the number of parameters updated during training, enabling low-cost fine-tuning.
