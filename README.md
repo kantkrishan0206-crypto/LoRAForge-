@@ -6,7 +6,7 @@ Build a production‑grade, modular pipeline for fine‑tuning large language mo
 # 🔥 **LoRAForge** 
 ### _Fine-Tuning Large Language Models (LLMs) Efficiently with LoRA_
  
-![LoRAForge Banner](<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/767ca8c1-d74e-4258-b68f-7d239f9adb73" />
+![LoRAForge Banner](<img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/4df64cb9-6956-476d-ac65-b4c3a47375fc" />)
 
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg?style=for-the-badge&logo=python)](https://www.python.org/)
@@ -167,16 +167,6 @@ LoRAForge/
 ├── requirements.txt
 └── README.md
 ```
-
----
-
-## 🌟 **Screenshots**
-
-<div align="center">
-<img src="https://raw.githubusercontent.com/yourusername/LoRAForge/main/assets/ui_dashboard.png" width="700" alt="Gradio Dashboard">
-<br><br>
-<img src="https://raw.githubusercontent.com/yourusername/LoRAForge/main/assets/training_plot.png" width="700" alt="Training Plot">
-</div>
 
 ---
 
