@@ -43,7 +43,7 @@ With LoRAForge, you can:
 ## 🏗️ **Architecture Overview**
 
 <div align="center">
-<img src="https://www.tenupsoft.com/images/blogs/llm-fine-tuning-internal-one-image.webp" width="700">
+<img src="" width="700">
 </div>
 
 **Explanation:**  
