@@ -225,13 +225,6 @@ LoRAForge/
 
 ---
 
-## 🤖 **Demo (Coming Soon)**
-
-You’ll soon be able to try LoRAForge on [**Hugging Face Spaces →**](https://huggingface.co/spaces/)  
-*(or host it locally via `streamlit run app/dashboard.py`)*
-
----
-
 ## 🧑‍🔬 **Research References**
 
 - **Hu et al. (2021)** — *LoRA: Low-Rank Adaptation of Large Language Models*  
