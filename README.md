@@ -43,7 +43,7 @@ With LoRAForge, you can:
 ## 🏗️ **Architecture Overview**
 
 <div align="center">
-<img src="https://raw.githubusercontent.com/yourusername/LoRAForge/main/assets/lora_diagram.png" width="700">
+<img src="https://www.aewin.com/wp-content/uploads/2025/02/LORA_%E5%B7%A5%E4%BD%9C%E5%8D%80%E5%9F%9F-1.jpg" width="700">
 </div>
 
 **Explanation:**  
@@ -216,6 +216,6 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 <div align="center">
   
 ✨ **LoRAForge — Fine-tune Giants, Pay Like a Student.** ✨  
-Built with ❤️ by [@yourusername](https://github.com/yourusername)
+Built with ❤️ by [kantkrishan0206-crypto](https://github.com/kantkrishan0206-crypto)
 
 </div>
