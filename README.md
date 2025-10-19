@@ -63,7 +63,7 @@ This dramatically cuts the number of parameters updated during training, enablin
 | PEFT | `PEFT` library (`get_peft_model`, `LoraConfig`) |
 | Visualization | Gradio / Streamlit |
 | Dataset | Domain-specific corpus (Medical / Legal / Financial) |
-| Deployment | Hugging Face Spaces / Vercel |
+| Deployment | Hugging Face Spaces  |
 
 ---
 
