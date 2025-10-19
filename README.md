@@ -149,10 +149,10 @@ print(metrics)
 
 ```
 LoRAForge/
-├─ README.md                        # 🔍 Project overview, setup, usage, examples, citations
+├─ README.md                        # 🔍 Project overview, setup, usage, citations, architecture
 ├─ LICENSE                          # 📜 MIT license for open-source use
-├─ requirements.txt                 # 📦 Python dependencies (pinned for reproducibility)
-├─ pyproject.toml                   # 🛠️ Optional modern packaging (Poetry or setuptools)
+├─ requirements.txt                 # 📦 Core dependencies (PEFT, Transformers, PyTorch, etc.)
+├─ pyproject.toml                   # 🛠️ Modern packaging (Poetry/setuptools)
 ├─ Makefile                         # ⚙️ CLI shortcuts: setup, train, eval, test, clean
 │
 ├─ configs/                         # 🧾 YAML configs for reproducible experiments
@@ -161,64 +161,73 @@ LoRAForge/
 │  ├─ lora_phi.yaml                 # LoRA config for Phi-2
 │  ├─ eval.yaml                     # Evaluation config (prompts, metrics, output paths)
 │  ├─ hub.yaml                      # Hugging Face Hub push config
-│  └─ cross_domain.yaml             # NEW: config for cross-domain evaluation (train vs test domains)
+│  └─ cross_domain.yaml             # Cross-domain evaluation config (train vs test domains)
 │
-├─ data/
-│  ├─ raw/                          # 📂 Original datasets (jsonl, csv, txt)
+├─ data/                            # 📂 Datasets for training/evaluation
+│  ├─ raw/                          # Original datasets (jsonl, csv, txt)
 │  │   ├─ dataset.jsonl             # Domain-specific instruction data
 │  │   └─ metadata.json             # Optional schema or source info
-│  ├─ processed/                    # 🧮 Preprocessed parquet/arrow files
+│  ├─ processed/                    # Preprocessed parquet/arrow files
 │  │   ├─ train.parquet             # Training split
 │  │   └─ val.parquet               # Validation split
-│  └─ samples/                      # 🧪 Tiny toy datasets for CI/tests
-│      ├─ sample.jsonl
-│      └─ sample.parquet
+│  └─ samples/                      # Tiny toy datasets for CI/tests
+│      ├─ sample.jsonl              # Minimal JSONL dataset for quick tests
+│      └─ sample.parquet            # Minimal parquet dataset for quick tests
 │
-├─ notebooks/                       # 📓 Jupyter notebooks for exploration, debugging, demos
-│  ├─ 00_project_overview.ipynb     # Pipeline walkthrough, config anatomy, usage
-│  ├─ 01_data_exploration.ipynb     # Inspect raw/processed data, schema, distributions
+├─ notebooks/                       # 📓 Research-grade notebooks for exploration and analysis
+│  ├─ 00_project_overview.ipynb     # Full pipeline walkthrough, config anatomy
+│  ├─ 01_data_exploration.ipynb     # Schema inspection, distribution plots
 │  ├─ 02_train_sft.ipynb            # Supervised fine-tuning demo
 │  ├─ 03_train_lora.ipynb           # LoRA adapter training demo
-│  ├─ 04_eval_visualization.ipynb   # Generate plots, metrics, prompt I/O
+│  ├─ 04_eval_visualization.ipynb   # Metrics, plots, prompt I/O rendering
 │  ├─ 05_merge_export.ipynb         # Merge LoRA into base, export to Hugging Face
-│  ├─ 06_sandbox_experiments.ipynb  # Free-form prototyping, ablations, debugging
-│  └─ 07_cross_domain_eval.ipynb    # NEW: demo notebook for cross-domain testing
+│  ├─ 06_sandbox_experiments.ipynb  # Ablations, debugging, exploratory runs
+│  └─ 07_cross_domain_eval.ipynb    # Cross-domain generalization analysis
 │
-├─ src/
-│  ├─ cli/                          # 🧵 CLI entrypoints for modular execution
+├─ src/                             # 🧠 Core source code
+│  ├─ cli/                          # CLI entrypoints for modular execution
 │  │   └─ run.py                    # Unified CLI: train, eval, export, push
-│  ├─ data/                         # 📊 Data loading, formatting, preprocessing
+│  ├─ data/                         # Data loading, formatting, preprocessing
 │  │   ├─ dataset_loader.py         # Load parquet/jsonl datasets
 │  │   ├─ formatters.py             # Prompt formatting for instruction-style tasks
-│  │   └─ preprocess.py             # Raw → processed conversion logic
-│  ├─ models/                       # 🧠 Model loading and LoRA adapter setup
+│  │   ├─ preprocess.py             # Raw → processed conversion logic
+│  │   └─ validators.py             # Schema & quality checks
+│  ├─ models/                       # Model loading and adapter setup
 │  │   ├─ load_base.py              # Load base model + tokenizer (with quantization)
 │  │   ├─ lora_setup.py             # Attach LoRA adapters via PEFT
-│  │   ├─ dynamic_lora.py           # NEW: dynamic rank adaptation logic (adjust r during training)
-│  │   └─ hybrid_lora.py            # NEW: hybrid LoRA + prompt-tuning (combine adapters + prefixes)
-│  ├─ training/                     # 🏋️ Training logic
+│  │   ├─ dynamic_lora.py           # Dynamic rank adaptation logic (adjust r during training)
+│  │   └─ hybrid_lora.py            # Hybrid LoRA + prompt-tuning (combine adapters + prefixes)
+│  ├─ training/                     # Training logic
 │  │   ├─ train_sft.py              # Supervised fine-tuning script
 │  │   ├─ train_lora.py             # LoRA fine-tuning script
-│  │   └─ trainer.py                # Shared Trainer wrapper (HF Trainer or custom)
-│  ├─ eval/                         # 📈 Evaluation and metrics
+│  │   ├─ trainer.py                # Shared Trainer wrapper (HF Trainer or custom)
+│  │   └─ callbacks.py              # Custom callbacks (logging, dynamic rank, early stopping)
+│  ├─ eval/                         # Evaluation and metrics
 │  │   ├─ evaluate.py               # Evaluation loop
 │  │   ├─ metrics.py                # Task-specific metrics (BLEU, ROUGE, EM, F1)
 │  │   ├─ visualizer.py             # Plotting, prompt I/O rendering
 │  │   ├─ prompts/
-│  │   │   └─ eval_prompts.jsonl    # Evaluation prompts (instruction-style)
-│  │   └─ cross_domain_eval.py      # NEW: cross-domain evaluation runner
-│  └─ utils/                        # 🛠️ Utilities
-│      ├─ io.py                     # File I/O helpers (load/save YAML, JSON, parquet)
+│  │   │   └─ eval_prompts.jsonl    # Instruction-style evaluation prompts
+│  │   └─ cross_domain_eval.py      # Cross-domain evaluation runner
+│  ├─ ui/                           # 🎨 User interface layer
+│  │   ├─ gradio_app.py             # Gradio dashboard for Spaces
+│  │   └─ streamlit_app.py          # Optional Streamlit UI
+│  ├─ deploy/                       # 🚀 Deployment layer
+│  │   ├─ spaces_app.py             # Hugging Face Spaces entrypoint (Gradio/Streamlit)
+│  │   ├─ app_utils.py              # Shared helpers for Spaces deployment
+│  │   └─ api.py                    # FastAPI inference API (optional)
+│  └─ utils/                        # Utilities
+│      ├─ io.py                     # File I/O helpers (YAML, JSON, parquet)
 │      ├─ logging.py                # Logging setup (console + file)
 │      ├─ seed.py                   # Reproducibility utilities (set_seed)
 │      └─ config.py                 # Config loader + schema validation
 │
-├─ scripts/                         # 🧪 Utility scripts for automation
+├─ scripts/                         # 🧪 Automation scripts for deployment and conversion
 │  ├─ prepare_data.py               # Preprocess raw → processed
 │  ├─ push_to_hub.py                # Upload model/adapters to Hugging Face Hub
 │  ├─ export_merged.py              # Merge LoRA adapters into base model
-│  ├─ convert_to_gguf.py            # Optional: export to GGUF for llama.cpp
-│  └─ quantize_model.py             # Optional: quantize merged model to 4-bit
+│  ├─ convert_to_gguf.py            # Export to GGUF for llama.cpp
+│  └─ quantize_model.py             # Quantize merged model to 4-bit
 │
 ├─ tests/                           # ✅ Unit tests for CI and reliability
 │  ├─ test_data.py                  # Dataset loading and formatting tests
@@ -226,8 +235,13 @@ LoRAForge/
 │  ├─ test_trainer.py               # Training loop sanity checks
 │  ├─ test_eval.py                  # Evaluation metrics and prompt rendering
 │  ├─ test_config.py                # Config schema and loader validation
-│  ├─ test_cross_domain.py          # NEW: unit tests for cross-domain eval
-│  └─ test_dynamic_lora.py          # NEW: unit tests for dynamic/hybrid LoRA
+│  ├─ test_cross_domain.py          # Cross-domain evaluation tests
+│  └─ test_dynamic_lora.py          # Dynamic/hybrid LoRA module tests
+│
+└─ Space/                           # 🌐 Hugging Face Spaces deployment folder
+   ├─ app.py                        # Main app file (Gradio/Streamlit) auto-detected by Spaces
+   ├─ requirements.txt              # Minimal deps for Spaces runtime
+   └─ README.md                     # Instructions for running this Space
 
 
 ```
