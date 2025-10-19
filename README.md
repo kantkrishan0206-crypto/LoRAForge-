@@ -148,6 +148,7 @@ print(metrics)
 ## 🧱 **Repository Structure**
 
 ```
+📂
 LoRAForge/
 ├─ README.md                        # 🔍 Project overview, setup, usage, citations, architecture
 ├─ LICENSE                          # 📜 MIT license for open-source use
